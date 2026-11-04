@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechZone Mobiles | Android & iPhone Store</title>
+    <link rel="stylesheet" href="mobile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <p>📞 Call us: +92 300 1234567 &nbsp;|&nbsp; 🚚 Free Delivery on Orders Above Rs. 50,000</p>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">📱 TechZone<span>Mobiles</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#brands">Brands</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒 <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-badge">✨ New Arrivals 2026</span>
+            <h1>Latest Smartphones<br>at Best Prices</h1>
+            <p>Shop the newest Android & iPhone models with genuine warranty</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">Shop Now</a>
+                <a href="#brands" class="btn btn-outline">Browse Brands</a>
+            </div>
+            <div class="hero-stats">
+                <div><strong>500+</strong><span>Models</span></div>
+                <div><strong>10K+</strong><span>Happy Customers</span></div>
+                <div><strong>100%</strong><span>Genuine</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Strip -->
+    <section class="features">
+        <div class="feature"><span>🚚</span><div><h4>Free Delivery</h4><p>On orders above Rs. 50,000</p></div></div>
+        <div class="feature"><span>🛡️</span><div><h4>1 Year Warranty</h4><p>Official brand warranty</p></div></div>
+        <div class="feature"><span>💳</span><div><h4>Easy Installments</h4><p>0% markup available</p></div></div>
+        <div class="feature"><span>🔄</span><div><h4>7 Day Return</h4><p>No questions asked</p></div></div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="section">
+        <h2 class="section-title">Our Smartphones</h2>
+        <p class="section-subtitle">Choose from the latest Android and iPhone models</p>
+
+        <!-- Filter Buttons -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="android">Android</button>
+            <button class="filter-btn" data-filter="iphone">iPhone</button>
+            <button class="filter-btn" data-filter="budget">Budget</button>
+            <button class="filter-btn" data-filter="flagship">Flagship</button>
+        </div>
+
+        <div class="product-grid" id="productGrid"></div>
+    </section>
+
+    <!-- Brands Section -->
+    <section id="brands" class="section brands-section">
+        <h2 class="section-title">Popular Brands</h2>
+        <div class="brand-grid">
+            <div class="brand-card">🍎<h4>Apple</h4></div>
+            <div class="brand-card">📱<h4>Samsung</h4></div>
+            <div class="brand-card">⚡<h4>Xiaomi</h4></div>
+            <div class="brand-card">🎯<h4>Oppo</h4></div>
+            <div class="brand-card">💚<h4>Vivo</h4></div>
+            <div class="brand-card">🔵<h4>Infinix</h4></div>
+            <div class="brand-card">🌸<h4>Realme</h4></div>
+            <div class="brand-card">🔥<h4>OnePlus</h4></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <h2 class="section-title">Visit Our Shop</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p><strong>📍 Address:</strong> Shop #12, Mobile Market, Main Boulevard, Lahore</p>
+                <p><strong>📞 Phone:</strong> +92 300 1234567</p>
+                <p><strong>📧 Email:</strong> info@techzonemobiles.com</p>
+                <p><strong>🕒 Hours:</strong> Mon-Sat 10AM - 10PM | Sunday 2PM - 10PM</p>
+                <div class="social-links">
+                    <a href="#">📘 Facebook</a>
+                    <a href="#">📸 Instagram</a>
+                    <a href="#">💬 WhatsApp</a>
+                </div>
+            </div>
+            <form class="contact-form" onsubmit="sendMessage(event)">
+                <input type="text" placeholder="Your Name" required>
+                <input type="tel" placeholder="Your Phone" required>
+                <input type="email" placeholder="Your Email" required>
+                <textarea placeholder="Your Message" rows="4" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>📱 TechZone Mobiles</h4>
+                <p>Your trusted mobile shop since 2015. We deal in all kinds of Android and iPhone mobiles with genuine warranty and best prices.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="#home">Home</a>
+                <a href="#products">Products</a>
+                <a href="#brands">Brands</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>Categories</h4>
+                <a href="#products">iPhones</a>
+                <a href="#products">Android Phones</a>
+                <a href="#products">Budget Phones</a>
+                <a href="#products">Flagship Phones</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 TechZone Mobiles. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>🛒 Your Cart</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="empty-cart">Your cart is empty</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">Total: Rs. <span id="cartTotal">0</span></div>
+            <button class="btn btn-primary checkout-btn" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+    <script src="mobile.js"></script>
+</body>
+</html>
