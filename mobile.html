@@ -4,9 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechZone Mobiles | Android & iPhone Store</title>
-    <link rel="stylesheet" href="mobile.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+<style>
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body { background: #f5f7fa; color: #1a1a1a; line-height: 1.6; scroll-behavior: smooth; }
+
+/* Top Bar */
+.top-bar {
+    background: linear-gradient(90deg, #0066ff, #00d2ff);
+    color: white; text-align: center; padding: 8px; font-size: 0.85rem;
+}
+
+/* Navbar */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 5%; background: white; position: sticky; top: 0;
+    z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+}
+.logo { font-size: 1.5rem; font-weight: 700; color: #0066ff; }
+.logo span { color: #1a1a1a; }
+.nav-links { list-style: none; display: flex; gap: 2rem; }
+.nav-links a { color: #333; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+.nav-links a:hover { color: #0066ff; }
+.cart-icon {
+    background: #0066ff; color: white; padding: 10px 16px; border-radius: 30px;
+    cursor: pointer; position: relative; font-size: 1.1rem; transition: transform 0.3s;
+}
+.cart-icon:hover { transform: scale(1.08); }
+.cart-count {
+    background: #ff3b3b; color: white; border-radius: 50%;
+    padding: 2px 8px; font-size: 0.75rem; margin-left: 5px; font-weight: 700;
+}
+
+/* Hero */
+.hero {
+    height: 90vh; position: relative; display: flex; align-items: center;
+    background: url('https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=1920&q=80') center/cover no-repeat;
+    padding: 0 5%;
+}
+.hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(120deg, rgba(0,20,60,0.85) 0%, rgba(0,50,100,0.6) 50%, transparent 100%);
+}
+.hero-content { position: relative; z-index: 2; color: white; max-width: 650px; animation: fadeUp 1s ease; }
+@keyframes fadeUp { from{opacity:0; transform: translateY(40px);} to{opacity:1; transform: translateY(0);} }
+.hero-badge {
+    display: inline-block; background: rgba(0,210,255,0.25); border: 1px solid #00d2ff;
+    padding: 6px 18px; border-radius: 30px; font-size: 0.85rem; margin-bottom: 20px;
+}
+.hero h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 20px; }
+.hero p { font-size: 1.15rem; margin-bottom: 30px; opacity: 0.95; }
+.hero-buttons { display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap; }
+.btn {
+    display: inline-block; padding: 14px 32px; text-decoration: none;
+    font-weight: 600; border-radius: 30px; cursor: pointer; border: none;
+    transition: all 0.3s; font-size: 1rem;
+}
+.btn-primary { background: #00d2ff; color: #001a33; }
+.btn-primary:hover { background: white; transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,210,255,0.4); }
+.btn-outline { background: transparent; color: white; border: 2px solid white; }
+.btn-outline:hover { background: white; color: #001a33; }
+.hero-stats { display: flex; gap: 40px; }
+.hero-stats div { text-align: left; }
+.hero-stats strong { display: block; font-size: 1.8rem; color: #00d2ff; }
+.hero-stats span { font-size: 0.85rem; opacity: 0.85; }
+
+/* Features */
+.features {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px; padding: 40px 5%; background: white;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+.feature { display: flex; gap: 15px; align-items: center; }
+.feature span { font-size: 2rem; }
+.feature h4 { font-size: 1rem; color: #1a1a1a; }
+.feature p { font-size: 0.8rem; color: #777; }
+
+/* Sections */
+.section { padding: 80px 5%; }
+.section-title {
+    text-align: center; font-size: 2.5rem; margin-bottom: 10px; color: #1a1a1a;
+}
+.section-title::after {
+    content: ''; display: block; width: 80px; height: 4px;
+    background: linear-gradient(90deg, #0066ff, #00d2ff);
+    margin: 12px auto 0; border-radius: 2px;
+}
+.section-subtitle { text-align: center; color: #777; margin-bottom: 40px; }
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex; justify-content: center; gap: 12px;
+    margin-bottom: 40px; flex-wrap: wrap;
+}
+.filter-btn {
+    padding: 10px 24px; border: 2px solid #e0e6ed; background: white;
+    border-radius: 30px; cursor: pointer; font-weight: 600; color: #555;
+    transition: all 0.3s;
+}
+.filter-btn:hover { border-color: #0066ff; color: #0066ff; }
+.filter-btn.active {
+    background: linear-gradient(90deg, #0066ff, #00d2ff);
+    color: white; border-color: transparent;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 25px; max-width: 1400px; margin: 0 auto;
+}
+.product-card {
+    background: white; border-radius: 18px; overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    transition: transform 0.35s, box-shadow 0.35s;
+    position: relative; display: flex; flex-direction: column;
+}
+.product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+.product-img {
+    height: 240px; background: #f0f4f8; display: flex;
+    align-items: center; justify-content: center; overflow: hidden;
+}
+.product-img img {
+    width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;
+}
+.product-card:hover .product-img img { transform: scale(1.1); }
+.product-badge {
+    position: absolute; top: 15px; left: 15px;
+    padding: 5px 14px; border-radius: 20px; font-size: 0.75rem;
+    font-weight: 700; text-transform: uppercase; color: white;
+}
+.badge-android { background: #3ddc84; color: #001a0d; }
+.badge-iphone { background: #333; }
+.badge-sale { background: #ff3b3b; }
+.product-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.product-brand { font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+.product-name { font-size: 1.15rem; font-weight: 700; margin: 5px 0 8px; color: #1a1a1a; }
+.product-specs { font-size: 0.82rem; color: #777; margin-bottom: 12px; }
+.product-price { font-size: 1.3rem; font-weight: 800; color: #0066ff; margin-bottom: 15px; }
+.product-price small { font-size: 0.8rem; color: #999; text-decoration: line-through; margin-left: 8px; font-weight: 400; }
+.add-btn {
+    background: linear-gradient(90deg, #0066ff, #00d2ff); color: white;
+    border: none; padding: 12px; border-radius: 12px; cursor: pointer;
+    font-weight: 600; transition: all 0.3s; margin-top: auto;
+}
+.add-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,102,255,0.35); }
+.add-btn.added { background: #3ddc84; color: #001a0d; }
+
+/* Brands */
+.brands-section { background: linear-gradient(135deg, #f0f4f8, #e6edf5); }
+.brand-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px; max-width: 1100px; margin: 0 auto;
+}
+.brand-card {
+    background: white; padding: 30px 20px; border-radius: 16px;
+    text-align: center; font-size: 2.2rem; cursor: pointer;
+    transition: all 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+.brand-card:hover {
+    transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,102,255,0.15);
+}
+.brand-card h4 { font-size: 1rem; margin-top: 10px; color: #333; }
+
+/* Contact */
+.contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    max-width: 1100px; margin: 0 auto;
+}
+.contact-info h3 { color: #0066ff; margin-bottom: 20px; font-size: 1.5rem; }
+.contact-info p { margin-bottom: 12px; color: #555; }
+.social-links { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+.social-links a {
+    text-decoration: none; color: #0066ff; background: #e6f0ff;
+    padding: 8px 16px; border-radius: 20px; font-size: 0.9rem;
+    transition: all 0.3s;
+}
+.social-links a:hover { background: #0066ff; color: white; }
+.contact-form {
+    background: white; padding: 30px; border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: flex; flex-direction: column; gap: 15px;
+}
+.contact-form input, .contact-form textarea {
+    padding: 12px 16px; border: 2px solid #e0e6ed; border-radius: 12px;
+    font-family: inherit; font-size: 0.95rem; transition: border-color 0.3s;
+}
+.contact-form input:focus, .contact-form textarea:focus {
+    outline: none; border-color: #0066ff;
+}
+
+/* Footer */
+footer { background: #0a1628; color: #ccc; padding-top: 50px; }
+.footer-content {
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px;
+    max-width: 1200px; margin: 0 auto; padding: 0 5% 40px;
+}
+.footer-col h4 { color: white; margin-bottom: 15px; }
+.footer-col a { display: block; color: #9ca8b8; text-decoration: none; margin-bottom: 8px; transition: color 0.3s; }
+.footer-col a:hover { color: #00d2ff; }
+.footer-col p { font-size: 0.9rem; line-height: 1.7; }
+.footer-bottom {
+    text-align: center; padding: 20px; border-top: 1px solid #1e2c44;
+    font-size: 0.85rem; color: #6b7a8f;
+}
+
+/* Cart Sidebar */
+.cart-sidebar {
+    position: fixed; top: 0; right: -420px; width: 400px; max-width: 100%;
+    height: 100vh; background: white; z-index: 3000;
+    display: flex; flex-direction: column; transition: right 0.4s ease;
+    box-shadow: -10px 0 40px rgba(0,0,0,0.2);
+}
+.cart-sidebar.open { right: 0; }
+.cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+    z-index: 2999; opacity: 0; visibility: hidden; transition: all 0.3s;
+}
+.cart-overlay.show { opacity: 1; visibility: visible; }
+.cart-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px; border-bottom: 1px solid #eee;
+}
+.cart-header h3 { color: #0066ff; }
+.close-cart { font-size: 2rem; cursor: pointer; color: #888; line-height: 1; }
+.close-cart:hover { color: #ff3b3b; }
+.cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+.empty-cart { text-align: center; color: #999; margin-top: 50px; }
+.cart-item {
+    display: flex; gap: 12px; align-items: center;
+    padding: 12px 0; border-bottom: 1px solid #f0f0f0;
+}
+.cart-item img {
+    width: 60px; height: 60px; border-radius: 10px; object-fit: cover;
+}
+.cart-item-info { flex: 1; }
+.cart-item-info h4 { font-size: 0.9rem; color: #1a1a1a; }
+.cart-item-info p { font-size: 0.85rem; color: #0066ff; font-weight: 600; }
+.remove-item {
+    background: #ffe6e6; color: #ff3b3b; border: none;
+    width: 30px; height: 30px; border-radius: 50%; cursor: pointer;
+    font-weight: 700; transition: all 0.3s;
+}
+.remove-item:hover { background: #ff3b3b; color: white; }
+.cart-footer { padding: 20px; border-top: 2px solid #eee; }
+.cart-total { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; }
+.cart-total span { color: #0066ff; }
+.checkout-btn { width: 100%; }
+
+/* Responsive */
+@media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+    .hero h1 { font-size: 2.4rem; }
+    .hero-stats { gap: 20px; }
+}
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero { height: 80vh; }
+    .hero h1 { font-size: 2rem; }
+    .hero-stats { flex-wrap: wrap; }
+    .section-title { font-size: 1.9rem; }
+    .top-bar p { font-size: 0.7rem; }
+}
+</style>
 <body>
 
     <!-- Top Bar -->
@@ -158,6 +421,215 @@
     </div>
     <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
 
-    <script src="mobile.js"></script>
+   
 </body>
+ <script>
+
+// ===== Product Data =====
+const products = [
+    {
+        id: 1, brand: "Apple", name: "iPhone 15 Pro Max",
+        specs: "256GB • Titanium • A17 Pro", price: 389999, oldPrice: 419999,
+        type: "iphone", tier: "flagship",
+        img: "https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=500&q=80"
+    },
+    {
+        id: 2, brand: "Apple", name: "iPhone 15",
+        specs: "128GB • Dynamic Island • A16", price: 269999, oldPrice: 289999,
+        type: "iphone", tier: "flagship",
+        img: "https://images.unsplash.com/photo-1696429175928-7c3f0e6a9b9a?w=500&q=80"
+    },
+    {
+        id: 3, brand: "Apple", name: "iPhone 13",
+        specs: "128GB • A15 Bionic • 5G", price: 189999, oldPrice: 219999,
+        type: "iphone", tier: "budget",
+        img: "https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=500&q=80"
+    },
+    {
+        id: 4, brand: "Samsung", name: "Galaxy S24 Ultra",
+        specs: "512GB • S Pen • 200MP Camera", price: 349999, oldPrice: 369999,
+        type: "android", tier: "flagship",
+        img: "https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=500&q=80"
+    },
+    {
+        id: 5, brand: "Samsung", name: "Galaxy A54",
+        specs: "256GB • 6.4\" AMOLED • 5000mAh", price: 94999, oldPrice: 109999,
+        type: "android", tier: "budget",
+        img: "https://images.unsplash.com/photo-1610792516307-ea5acd9c3b00?w=500&q=80"
+    },
+    {
+        id: 6, brand: "Xiaomi", name: "Redmi Note 13 Pro",
+        specs: "256GB • 200MP Camera • 67W", price: 69999, oldPrice: 79999,
+        type: "android", tier: "budget",
+        img: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&q=80"
+    },
+    {
+        id: 7, brand: "Xiaomi", name: "Xiaomi 14 Ultra",
+        specs: "512GB • Leica Camera • Snapdragon 8", price: 249999, oldPrice: 269999,
+        type: "android", tier: "flagship",
+        img: "https://images.unsplash.com/photo-1567581935884-3349723552ca?w=500&q=80"
+    },
+    {
+        id: 8, brand: "OnePlus", name: "OnePlus 12",
+        specs: "256GB • 100W Charging • AMOLED", price: 179999, oldPrice: 199999,
+        type: "android", tier: "flagship",
+        img: "https://images.unsplash.com/photo-1585060544812-6b45742d762f?w=500&q=80"
+    },
+    {
+        id: 9, brand: "Oppo", name: "Oppo Reno 11",
+        specs: "256GB • 6.7\" AMOLED • 67W", price: 84999, oldPrice: 94999,
+        type: "android", tier: "budget",
+        img: "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?w=500&q=80"
+    },
+    {
+        id: 10, brand: "Vivo", name: "Vivo V30 Pro",
+        specs: "256GB • Zeiss Camera • 80W", price: 129999, oldPrice: 139999,
+        type: "android", tier: "flagship",
+        img: "https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?w=500&q=80"
+    },
+    {
+        id: 11, brand: "Infinix", name: "Infinix Note 40",
+        specs: "128GB • 6.78\" AMOLED • 45W", price: 44999, oldPrice: 49999,
+        type: "android", tier: "budget",
+        img: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80"
+    },
+    {
+        id: 12, brand: "Realme", name: "Realme 12 Pro+",
+        specs: "256GB • Periscope Camera • 67W", price: 79999, oldPrice: 89999,
+        type: "android", tier: "budget",
+        img: "https://images.unsplash.com/photo-1519337265831-281ec6cc8514?w=500&q=80"
+    }
+];
+
+let cart = [];
+
+// ===== Render Products =====
+function renderProducts(filter = 'all') {
+    const grid = document.getElementById('productGrid');
+    grid.innerHTML = '';
+
+    const filtered = products.filter(p => {
+        if (filter === 'all') return true;
+        if (filter === 'android' || filter === 'iphone') return p.type === filter;
+        return p.tier === filter;
+    });
+
+    filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        const badgeClass = p.type === 'iphone' ? 'badge-iphone' : 'badge-android';
+        const badgeText = p.type === 'iphone' ? 'iPhone' : 'Android';
+        const discount = Math.round((1 - p.price / p.oldPrice) * 100);
+
+        card.innerHTML = `
+            <div class="product-img">
+                <img src="${p.img}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/300x300?text=${encodeURIComponent(p.brand)}'">
+                <span class="product-badge ${badgeClass}">${badgeText}</span>
+                ${discount > 0 ? `<span class="product-badge badge-sale" style="left:auto;right:15px">-${discount}%</span>` : ''}
+            </div>
+            <div class="product-body">
+                <span class="product-brand">${p.brand}</span>
+                <h3 class="product-name">${p.name}</h3>
+                <p class="product-specs">${p.specs}</p>
+                <div class="product-price">Rs. ${p.price.toLocaleString()} <small>Rs. ${p.oldPrice.toLocaleString()}</small></div>
+                <button class="add-btn" onclick="addToCart(${p.id}, this)">Add to Cart 🛒</button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+// ===== Filter Buttons =====
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderProducts(btn.dataset.filter);
+    });
+});
+
+// ===== Cart Functions =====
+function addToCart(id, btn) {
+    const product = products.find(p => p.id === id);
+    const existing = cart.find(item => item.id === id);
+
+    if (existing) {
+        existing.qty++;
+    } else {
+        cart.push({ ...product, qty: 1 });
+    }
+
+    if (btn) {
+        btn.textContent = 'Added ✓';
+        btn.classList.add('added');
+        setTimeout(() => {
+            btn.textContent = 'Add to Cart 🛒';
+            btn.classList.remove('added');
+        }, 1500);
+    }
+
+    updateCart();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    updateCart();
+}
+
+function updateCart() {
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartTotal').textContent = total.toLocaleString();
+
+    const itemsDiv = document.getElementById('cartItems');
+    if (cart.length === 0) {
+        itemsDiv.innerHTML = '<p class="empty-cart">Your cart is empty 🛒</p>';
+        return;
+    }
+
+    itemsDiv.innerHTML = cart.map(item => `
+        <div class="cart-item">
+            <img src="${item.img}" alt="${item.name}">
+            <div class="cart-item-info">
+                <h4>${item.name} ${item.qty > 1 ? `(x${item.qty})` : ''}</h4>
+                <p>Rs. ${(item.price * item.qty).toLocaleString()}</p>
+            </div>
+            <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+        </div>
+    `).join('');
+}
+
+function toggleCart() {
+    const sidebar = document.getElementById('cartSidebar');
+    const overlay = document.getElementById('cartOverlay');
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('show');
+}
+
+function checkout() {
+    if (cart.length === 0) {
+        alert('Your cart is empty! Add some products first.');
+        return;
+    }
+    const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+    alert(`✅ Order Confirmed!\n\nTotal: Rs. ${total.toLocaleString()}\n\nThank you for shopping at TechZone Mobiles!\nOur team will contact you shortly.`);
+    cart = [];
+    updateCart();
+    toggleCart();
+}
+
+// ===== Contact Form =====
+function sendMessage(e) {
+    e.preventDefault();
+    alert('✅ Thank you for your message! We will contact you soon.');
+    e.target.reset();
+}
+
+// ===== Smooth Scrolling =====
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        const targetId = this.get
+    </script>
 </html>
